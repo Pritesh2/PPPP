@@ -16,6 +16,12 @@ void f1()
 	cin>>n;
 	int arr[n];
 
+	if(n==1)
+	{
+		cout<<0<<" "<<1<<endl;
+		return;
+	}
+
 	for(int i=0;i<n;i++){cin>>arr[i];}
 
 	int t_a,t_b;
@@ -130,9 +136,9 @@ int main()
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	
-	//f1();
+	f1();
 
-	f2();
+	//f2();
 
 	/*
 	int t;
