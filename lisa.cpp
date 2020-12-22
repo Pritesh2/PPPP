@@ -16,9 +16,9 @@ There are no spaces between the characters.
 */
 
 
-int dp[1001][1001];
+long dp[1001][1001];
 int  count1=0;
-int partition(int s,int e)
+long partition(int s,int e)
 {
 	//cout<<count1<<"---"<<s<<" to "<<e<<endl;;
 	count1++;
@@ -26,11 +26,11 @@ int partition(int s,int e)
 
 	if(dp[s][e]!=-1){return dp[s][e];}
 
-	int low=100000;
+	long low=INT64_MAX;
 
 	for(int k=s;k<e;k++)
 	{
-		int ans;
+		long ans;
 		if(operand[k-1]=='+')
 		{
 			ans=partition(s,k)+partition(k+1,e);
@@ -40,6 +40,37 @@ int partition(int s,int e)
 		}
 
 		low=min(ans,low);
+
+	}
+
+	dp[s][e]=low;
+	return dp[s][e];
+
+}
+
+
+long partition1(int s,int e)
+{
+	//cout<<count1<<"---"<<s<<" to "<<e<<endl;;
+	//count1++;
+	if(s==e){ return digit[s-1]-'0'+0;}
+
+	if(dp[s][e]!=-1){return dp[s][e];}
+
+	long low=-1;
+
+	for(int k=s;k<e;k++)
+	{
+		long ans;
+		if(operand[k-1]=='+')
+		{
+			ans=partition1(s,k)+partition1(k+1,e);
+		}
+		else{
+			ans=partition1(s,k)*partition1(k+1,e);
+		}
+
+		low=max(ans,low);
 
 	}
 
@@ -79,8 +110,18 @@ void f1()
 			dp[i][j]=-1;
 		}
 	}
+	long ansm=partition1(1,digit.size());
+	cout<<ansm<<" ";
+	for(int i=1;i<=digit.size();i++)
+	{
+		for(int j=1;j<=digit.size();j++)
+		{
+			dp[i][j]=-1;
+		}
+	}
 
-	int ans=partition(1,digit.size());
+	long ans=partition(1,digit.size());
+
 	cout<<ans<<endl;
 
 }
